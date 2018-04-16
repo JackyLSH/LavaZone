@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LavaZone</string>
+    <string name="title_activity_store">StoreActivity</string>
 </resources>
