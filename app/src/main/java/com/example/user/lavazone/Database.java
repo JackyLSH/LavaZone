@@ -107,4 +107,13 @@ public class Database {
         return false;
     }
 
+    public List<Item> searchItem(String[] keyword){
+        /*Parameter: list of string as search keyword
+        Return: List of Item of search result
+         */
+        ArrayList<Item> itemList = new ArrayList<Item>();
+
+        return itemList;
+    }
+
 }
