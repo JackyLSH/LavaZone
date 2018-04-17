@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--Top bar-->
+        <RelativeLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true">
+
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="100">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="100"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="35"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_lz_logo"/>
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/topSearch"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="60"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:minLines="1"/>
+
+                    <ImageButton
+                        android:id="@+id/topSearchButtom"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:src="@drawable/ic_search"
+                        android:backgroundTint="@color/colorAccent"/>
+
+                </LinearLayout>
+
+            </android.support.design.widget.AppBarLayout>
+
+        </RelativeLayout>
+
+
+        <!--This is the content part-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottomBar"
+            android:layout_below="@+id/topBar">
+
+
+        </RelativeLayout>
+
+
+        <!--Bottom Navigation Bar-->
+        <RelativeLayout
+            android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true">
+
+            <android.support.design.widget.BottomNavigationView
+                android:id="@+id/bottomNavViewBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:menu="@menu/bottom_navigation_menu">
+
+
+            </android.support.design.widget.BottomNavigationView>
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>
