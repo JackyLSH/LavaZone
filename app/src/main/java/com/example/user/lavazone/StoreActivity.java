@@ -129,17 +129,22 @@ public class StoreActivity extends AppCompatActivity {
         tv_warningLb.setVisibility(View.VISIBLE);
 
         ScrollView sv_storeScroll = (ScrollView)this.findViewById(R.id.storeScroll);
-        sv_storeScroll.setVisibility(View.INVISIBLE);
+        sv_storeScroll.setVisibility(View.GONE);
     }
 
     // Hide error page
     protected void hideError() {
         ImageView iv_warngingImg = (ImageView)this.findViewById(R.id.warningImg);
         TextView tv_warningLb = (TextView)this.findViewById(R.id.warningLb);
-        iv_warngingImg.setVisibility(View.INVISIBLE);
-        tv_warningLb.setVisibility(View.INVISIBLE);
+        iv_warngingImg.setVisibility(View.GONE);
+        tv_warningLb.setVisibility(View.GONE);
 
         ScrollView sv_storeScroll = (ScrollView)this.findViewById(R.id.storeScroll);
         sv_storeScroll.setVisibility(View.VISIBLE);
+    }
+
+    public void showMoreItems(View v) {
+        Log.d("AppMsg", "Show more items...");
+        return;
     }
 }
