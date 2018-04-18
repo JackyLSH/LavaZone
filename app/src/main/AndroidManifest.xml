@@ -22,7 +22,7 @@
         <activity android:name=".AdvancedSearchActivity" />
         <activity android:name=".CartActivity" />
         <activity android:name=".ItemDetailActivity" />
-        <activity android:name=".ItemlListActivity" />
+        <activity android:name=".ItemListActivity" />
         <activity
             android:name=".StoreActivity"
             android:label="@string/title_activity_store"
