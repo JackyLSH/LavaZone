@@ -234,4 +234,27 @@ public class Database {
         }
         return imgReference;
     }
+
+    public List<Item> getRecentStoreItem(int id) throws Exception{
+        /*Parameter: no of item to get from Database
+        *Return: List of Item object
+        */
+        ArrayList<Item> itemList = new ArrayList<Item>();
+        String query = "request=newstoreitem&id=" + String.valueOf(id);
+        String tempurl = url + "?" + query;
+        URL targetURL = new URL(tempurl);
+        HttpURLConnection con = (HttpURLConnection) targetURL.openConnection();
+        int responseCode = con.getResponseCode();
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        Gson gson = (new GsonBuilder()).setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        Item[] itemListtemp = gson.fromJson(response.toString(),Item[].class);
+        itemList = new ArrayList<Item>(Arrays.asList(itemListtemp));
+        return itemList;
+    }
 }
