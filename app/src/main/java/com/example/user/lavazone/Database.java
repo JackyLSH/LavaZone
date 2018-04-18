@@ -22,7 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Database {
-    private final String url = "http://localhost/hw/mobile_proj/database.php";
+    private final String url = "http://www2.comp.polyu.edu.hk/~15093307d/database.php";
 
     public String SendStringRequest(String cmd) throws Exception {
         URL req = new URL(url + "?request=" + cmd);
