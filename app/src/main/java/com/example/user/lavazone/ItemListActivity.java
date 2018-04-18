@@ -8,13 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-
-public class AdvancedSearchActivity extends AppCompatActivity {
+public class ItemListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_advance_search);
+        setContentView(R.layout.activity_item_list);
 
         //on select navigation bar highlight
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavViewBar);
@@ -27,17 +26,17 @@ public class AdvancedSearchActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.ic_home:
-                        Intent intent0 = new Intent(AdvancedSearchActivity.this, HomeActivity.class);
+                        Intent intent0 = new Intent(ItemListActivity.this, HomeActivity.class);
                         startActivity(intent0);
                         break;
 
                     case R.id.ic_advasearch_search:
-                        Intent intent1 = new Intent(AdvancedSearchActivity.this, AdvancedSearchActivity.class);
+                        Intent intent1 = new Intent(ItemListActivity.this, AdvancedSearchActivity.class);
                         startActivity(intent1);
                         break;
 
                     case R.id.ic_cart:
-                        Intent intent2 = new Intent(AdvancedSearchActivity.this, CartActivity.class);
+                        Intent intent2 = new Intent(ItemListActivity.this, CartActivity.class);
                         startActivity(intent2);
                         break;
 
