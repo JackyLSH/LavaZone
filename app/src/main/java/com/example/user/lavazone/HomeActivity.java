@@ -1,5 +1,8 @@
 package com.example.user.lavazone;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,9 +20,20 @@ public class HomeActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
         Database db = new Database();
-        try {
-            Log.d("AppMsg", db.SendJSONRequest("get-item-list").toString());
+//        try {
+//            Log.d("AppMsg", db.SendJSONRequest("get-item-list").toString());
+//        }
+//        catch(Exception e) {Log.d("AppMsg",e.toString());}
+//        Log.d("AppMsg", "network: " + isNetworkAvailable());
+
+        if (isNetworkAvailable()) {
+
         }
-        catch(Exception e) {Log.d("AppMsg",e.toString());}
+    }
+
+    protected boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

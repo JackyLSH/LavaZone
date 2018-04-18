@@ -1,5 +1,8 @@
 package com.example.user.lavazone;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.JsonReader;
 import android.util.Log;
 
@@ -14,9 +17,12 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Database {
-    private final String url = "http://www2.comp.polyu.edu.hk/~14072822d/database.php";
+    private final String url = "http://www2.comp.polyu.edu.hk/~15093307d/database.php";
 
     public String SendStringRequest(String cmd) throws Exception {
         URL req = new URL(url + "?request=" + cmd);
@@ -44,5 +50,63 @@ public class Database {
 
     public Item GetItemList() {
         return null;
+    }
+
+    //below method need testing...
+    public Item getItemDetailByID(int id) throws Exception {
+        String query = "request=itembyid&itemid=" + id;
+        String tempurl = url + "?" + URLEncoder.encode(query, "UTF-8");
+        URL targetURL = new URL(tempurl);
+        HttpURLConnection con = (HttpURLConnection) targetURL.openConnection();
+        int responseCode = con.getResponseCode();
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        Gson gson = new Gson();
+        Item item = gson.fromJson(response.toString(), Item.class);
+        return item;
+    }
+
+    public Store getStoreDetailByID(int id) throws Exception{
+        String query = "request=itembyid&itemid=" + id;
+        String tempurl = url + "?" + URLEncoder.encode(query, "UTF-8");
+        URL targetURL = new URL(tempurl);
+        HttpURLConnection con = (HttpURLConnection) targetURL.openConnection();
+        int responseCode = con.getResponseCode();
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        Gson gson = new Gson();
+        Store store = gson.fromJson(response.toString(), Store.class);
+        return store;
+    }
+
+    public List<Item> getRecentItem(int item_num){
+        /*Parameter: no of item to get from Database
+         *Return: List of Item object
+         */
+        ArrayList<Item> itemList = new ArrayList<Item>();
+        //to be implement
+
+
+        return  itemList;
+    }
+
+    public boolean sentOrderRecord(String name, String addr, String email, int tel){
+        /*Return: a boolean of success order sent
+         */
+
+        //to be implemenet
+
+
+        return false;
     }
 }
