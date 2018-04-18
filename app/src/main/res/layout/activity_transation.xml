@@ -7,177 +7,8 @@
     tools:context=".TransationActivity">
 
     <!--Top bar-->
-    <RelativeLayout
-        android:id="@+id/topBar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true">
-
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="100">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="100"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="35"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_lz_logo"/>
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/topSearch"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="60"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:minLines="1"/>
-
-                <ImageButton
-                    android:id="@+id/topSearchButtom"
-                    android:layout_width="30dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:src="@drawable/ic_search"
-                    android:backgroundTint="@color/colorAccent"/>
-
-            </LinearLayout>
-
-        </android.support.design.widget.AppBarLayout>
-
-    </RelativeLayout>
 
     <!--This is the content part-->
-    <ScrollView
-        android:id="@+id/home_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/bottomBar"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/topBar"
-        android:layout_marginBottom="0dp"
-        android:layout_marginHorizontal="5dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:baselineAligned="false"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btn99"
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:clickable="false"
-                android:visibility="invisible"/>
-
-            <Button
-                android:id="@+id/btn98"
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:clickable="false"
-                android:visibility="invisible"/>
-
-            <TextView
-                android:id="@+id/TextName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textAlignment="center"
-                android:text="Name"
-                android:textColor="#000"
-                android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/TextCardNum"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Card Name"
-                android:layout_gravity="center_horizontal"
-                android:textAlignment="center"
-                android:textColor="#000"
-                android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/TextDueDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Due Date"
-                android:layout_gravity="center_horizontal"
-                android:textAlignment="center"
-                android:textColor="#000"
-                android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/TextCVC"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="CVC"
-                android:layout_gravity="center_horizontal"
-                android:textAlignment="center"
-                android:textColor="#000"
-                android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/BillingAdd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textAlignment="center"
-                android:text="Billing Address"
-                android:textColor="#000"
-                android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/Text05"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textAlignment="center"
-                android:text="Tel Number"
-                android:textColor="#000"
-                android:textSize="20dp" />
-
-            <Button
-                android:id="@+id/btn97"
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:clickable="false"
-                android:visibility="invisible"/>
-
-            <Button
-                android:id="@+id/btn96"
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:clickable="false"
-                android:visibility="invisible"/>
-
-            <Button
-                android:id="@+id/btnViewAtt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Confirm"
-                android:textSize="16sp"
-                android:padding="16dp"
-                android:textStyle="bold"
-                android:background="#000"
-                android:textColor="#fff"
-                android:clickable="true"
-                android:onClick="OnConfirm"/>
-
-        </LinearLayout>
-
-    </ScrollView>
-
-    <!--Bottom Navigation Bar-->
     <RelativeLayout
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
@@ -193,5 +24,175 @@
 
         </android.support.design.widget.BottomNavigationView>
     </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/home_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginHorizontal="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnBack"
+                android:layout_width="133dp"
+                android:layout_height="31dp"
+                android:layout_gravity="right"
+                android:clickable="false"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/TextName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Card Holder Name"
+                android:textAlignment="textStart"
+                android:textColor="#000"
+                android:textSize="20dp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="hint"
+                    android:inputType="text" />
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/TextCardNum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Card Number"
+                android:textAlignment="textStart"
+                android:textColor="#000"
+                android:textSize="20dp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="hint"
+                    android:inputType="number" />
+            </android.support.design.widget.TextInputLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="79dp">
+
+                <TableRow
+                    android:layout_width="183dp"
+                    android:layout_height="40dp">
+
+                    <TextView
+                        android:id="@+id/TextExpDate"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center_horizontal"
+                        android:text="Expiry Date"
+                        android:textAlignment="textStart"
+                        android:textColor="#000"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/TextCVC"
+                        android:layout_width="184dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center_horizontal"
+                        android:text="CVC"
+                        android:textAlignment="textStart"
+                        android:textColor="#000"
+                        android:textSize="20dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <EditText
+                        android:id="@+id/dateInput"
+                        android:layout_width="184dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="date" />
+
+                    <EditText
+                        android:id="@+id/cvcInput"
+                        android:layout_width="153dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="number" />
+                </TableRow>
+
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/BillingAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Billing Address"
+                android:textAlignment="textStart"
+                android:textColor="#000"
+                android:textSize="20dp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="hint" />
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/TextTel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Tel Number"
+                android:textAlignment="textStart"
+                android:textColor="#000"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/telInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="phone" />
+
+            <Button
+                android:id="@+id/btnConfirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#000"
+                android:clickable="true"
+                android:onClick="OnConfirm"
+                android:padding="16dp"
+                android:text="Confirm"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!--Bottom Navigation Bar-->
 
 </RelativeLayout>
