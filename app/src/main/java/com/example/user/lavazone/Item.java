@@ -1,5 +1,7 @@
 package com.example.user.lavazone;
 
+import com.google.gson.Gson;
+
 import java.util.Date;
 
 public class Item {
@@ -19,4 +21,12 @@ public class Item {
         this.post_date = post_date;
     }
 
+    public String toString() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    }
+
+    public String className() {
+        return "Item";
+    }
 }
