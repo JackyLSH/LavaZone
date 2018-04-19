@@ -20,4 +20,13 @@ public class Item {
     public String className() {
         return "Item";
     }
+
+    public Item(int item_id, String name, String item_description, float price, int store_id, Date post_date) {
+        this.item_id = item_id;
+        this.name = name;
+        this.item_description = item_description;
+        this.price = price;
+        this.store_id = store_id;
+        this.post_date = post_date;
+    }
 }
