@@ -1,4 +1,32 @@
 <resources>
     <string name="app_name">LavaZone</string>
     <string name="title_activity_store">StoreActivity</string>
+    <string name="search_but">search_but</string>
+    <string name="logo_lavazon">logo_lavazon</string>
+
+    <string-array name="categories_array">
+        <item>table</item>
+        <item>chair</item>
+        <item>sofa</item>
+    </string-array>
+
+    <string-array name="color_array">
+        <item>blue</item>
+        <item>red</item>
+        <item>green</item>
+    </string-array>
+
+    <string-array name="texture_array">
+        <item>wood</item>
+        <item>plastic</item>
+        <item>metal</item>
+    </string-array>
+
+    <string-array name="pricerange_array">
+        <item>0-500</item>
+        <item>501-1500</item>
+        <item>1501-3000</item>
+        <item>3000+</item>
+    </string-array>
+
 </resources>
