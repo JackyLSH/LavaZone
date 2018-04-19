@@ -67,5 +67,12 @@ public class DatabaseTest {
         }
     }
 
+    @Test
+    public void getRecentStoreItem_test() throws Exception {
+        Database db = new Database();
+        List<Item> it = db.getRecentStoreItem(1);
+        System.out.println(it.get(0).name);
+    }
+
 
 }
