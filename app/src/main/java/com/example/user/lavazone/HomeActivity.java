@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
@@ -36,6 +37,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -47,13 +49,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
-    private File externalStorageDirectory = Environment.getExternalStorageDirectory();
+    private File externalStorageDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
     File recentItemsFile = new File(externalStorageDirectory + File.separator + "LavaZone" + File.separator + "homepage", "homeRecentItems.json");
     File[] recentItemsImgFiles = {
-            new File(externalStorageDirectory + File.separator + "LavaZone" + File.separator + "homepage", "homeRecentItemsImg1.json"),
-            new File(externalStorageDirectory + File.separator + "LavaZone" + File.separator + "homepage", "homeRecentItemsImg2.json"),
-            new File(externalStorageDirectory + File.separator + "LavaZone" + File.separator + "homepage", "homeRecentItemsImg3.json"),
-            new File(externalStorageDirectory + File.separator + "LavaZone" + File.separator + "homepage", "homeRecentItemsImg4.json")
+            new File(externalStorageDirectory + File.separator + "LavaZone" + File.separator + "homepage", "homeRecentItemsImg1.jpg"),
+            new File(externalStorageDirectory + File.separator + "LavaZone" + File.separator + "homepage", "homeRecentItemsImg2.jpg"),
+            new File(externalStorageDirectory + File.separator + "LavaZone" + File.separator + "homepage", "homeRecentItemsImg3.jpg"),
+            new File(externalStorageDirectory + File.separator + "LavaZone" + File.separator + "homepage", "homeRecentItemsImg4.jpg")
     };
 //    File recentItemsImgFile1 = new File(externalStorageDirectory + File.separator + "LavaZone" + File.separator + "homepage", "homeRecentItemsImg1.json");
 //    File recentItemsImgFile2 = new File(externalStorageDirectory + File.separator + "LavaZone" + File.separator + "homepage", "homeRecentItemsImg2.json");
@@ -66,6 +68,14 @@ public class HomeActivity extends AppCompatActivity {
     private Database db;
     private List<Item> recentItems;
     private LinearLayout[] ll_latestItem;
+
+    private Storage storage_recentItems = new Storage(this, "homeRecentItems.json", "List<Item>");
+    private Storage[] storage_recentItemsImg =  {
+            new Storage(this, "homeRecentItemsImg1.jpg", "jpg"),
+            new Storage(this, "homeRecentItemsImg2.jpg", "jpg"),
+            new Storage(this, "homeRecentItemsImg3.jpg", "jpg"),
+            new Storage(this, "homeRecentItemsImg4.jpg", "jpg"),
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,13 +158,15 @@ public class HomeActivity extends AppCompatActivity {
         this.ll_latestItem = ll_latestItem;
         Gson gson = new Gson();
 
-
+        Log.d("AppMsg", ""+getFilesDir()+"/mydirectory");
 
         if (isNetworkAvailable()) {
             try {
                 recentItems = db.getRecentItem(4);
+
                 // save recentItems to storage
-                writeToFile(recentItemsFile, recentItems);
+                writeToFile(storage_recentItems, recentItems);
+
                 for (int num=0; num<4; num++) {
                     if (recentItems.size() > num) {
                         // set item
@@ -165,7 +177,8 @@ public class HomeActivity extends AppCompatActivity {
                         tv_latestItemName[num].setText(recentItems.get(num).name);
 
                         // save recentItemImg to storage
-                        writeToFile(recentItemsImgFiles[num], content);
+//                        gson.toJson(content, new FileWriter(recentItemsImgFiles[num].getAbsolutePath()));
+                        writeToFile(storage_recentItemsImg[num], d);
 
                     } else {
                         // set invisible
@@ -180,25 +193,22 @@ public class HomeActivity extends AppCompatActivity {
             }
             //itemOnClick();
         } else {
-            String str = readFromFile(recentItemsFile);
-            if (str != null) {
-                Item[] items = gson.fromJson(str, Item[].class);
-                recentItems = new ArrayList<Item>(Arrays.asList(items));
+
+                recentItems = (List<Item>) readFromFile(storage_recentItems);
+
+                if (recentItems == null) {
+                    // Error
+                    Log.d("AppMsg", "Fatal Error 1: no recentItems");
+                }
 
                 for (int num=0; num<4; num++) {
                     if (recentItems.size() > num) {
                         // set item
-                        String str2 = readFromFile(recentItemsImgFiles[num]);
-                        if (str2 != null) {
-                            InputStream content = gson.fromJson(str, InputStream.class);
-                            Drawable d = Drawable.createFromStream(content, "src");
-                            iv_latestItemImg[num].setImageDrawable(d);
-                            tv_latestItemName[num].setText(recentItems.get(num).name);
-                        }
-                        else {
-                            // error
-                            Log.d("AppMsg", "Fatal Error");
-                        }
+                        tv_latestItemName[num].setText(recentItems.get(num).name);
+
+                        Bitmap b = (Bitmap) readFromFile(storage_recentItemsImg[num]);
+                        iv_latestItemImg[num].setImageBitmap(b);
+
                     } else {
                         // set invisible
                         iv_latestItemImg[num].setVisibility(View.GONE);
@@ -206,10 +216,7 @@ public class HomeActivity extends AppCompatActivity {
 
                     }
                 }
-            } else {
-                // error
-                Log.d("AppMsg", "Fatal Error");
-            }
+
         }
     }
 
@@ -217,6 +224,7 @@ public class HomeActivity extends AppCompatActivity {
     protected boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        Log.d("AppMsg", "Network check: " + (activeNetworkInfo != null && activeNetworkInfo.isConnected()));
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
@@ -274,60 +282,60 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     // Write to file
-    private void writeToFile(File file, Object obj) {
+    private void writeToFile(Storage storage, Object obj) {
         if (isExternalStorageWritable()) {
-            if (!file.exists()) {
-                try {
-                    file.mkdirs();
-                    file.createNewFile();
-                } catch (IOException e) {
-                    Log.d("AppMsg", "Error in creating file: " + e.getMessage());
-                }
-            }
-            try {
-                Gson gson = new Gson();
-                FileOutputStream fOut = new FileOutputStream(file);
-                OutputStreamWriter fileWriter = new OutputStreamWriter(fOut);
-                fileWriter.write(gson.toJson(obj));
-                fileWriter.close();
-                fOut.close();
-                Log.d("AppMsg", "File written to " + file.getAbsolutePath());
-            } catch (Exception e) {
-                Log.d("AppMsg", "Error in writing: " + e.getMessage());
-            }
+//            if (!file.exists()) {
+//                try {
+//                    file.mkdirs();
+//                    file.createNewFile();
+//                } catch (IOException e) {
+//                    Log.d("AppMsg", "Error in creating file: " + e.getMessage());
+//                }
+//            }
+//            try {
+//                Gson gson = new Gson();
+//                FileOutputStream fOut = new FileOutputStream(file);
+//                OutputStreamWriter fileWriter = new OutputStreamWriter(fOut);
+//                fileWriter.write(gson.toJson(obj));
+//                fileWriter.close();
+//                fOut.close();
+//                Log.d("AppMsg", "File written to " + file.getAbsolutePath());
+//            } catch (Exception e) {
+//                Log.d("AppMsg", "Error in writing: " + e.getMessage());
+//            }
+            storage.writeFileInternalStorage(obj);
         }
         else {
             Log.d("AppMsg", "Storage not writable");
         }
     }
 
-    private String readFromFile(File file) {
+    private Object readFromFile(Storage storage) {
         if (isExternalStorageReadable()) {
-            if (!file.exists()) {
-                Log.d("AppMsg", "File not found");
-                return null;
-            }
-            Log.d("AppMsg", file.getName()+" found");
-            try {
-                Gson gson = new Gson();
-                BufferedReader br = new BufferedReader(new FileReader(file));
-                String line;
-                StringBuilder text = new StringBuilder();
+//            if (!file.exists()) {
+//                Log.d("AppMsg", "File not found");
+//                return null;
+//            }
+//            Log.d("AppMsg", file.getName()+" found");
+//            try {
+//                Gson gson = new Gson();
+//                BufferedReader br = new BufferedReader(new FileReader(file));
+//                String line;
+//                StringBuilder text = new StringBuilder();
+//
+//                while ((line = br.readLine()) != null) {
+//                    text.append(line);
+//                    text.append('\n');
+//                }
+//                br.close();
+//                return text.toString();
+//            } catch (IOException e) {
+//                Log.d("AppMsg", "Error in reading file: " + e.getMessage());
+//            }
+            return storage.readFileInternalStorage();
+        }
 
-                while ((line = br.readLine()) != null) {
-                    text.append(line);
-                    text.append('\n');
-                }
-                br.close();
-                return text.toString();
-            } catch (IOException e) {
-                Log.d("AppMsg", "Error in reading file: " + e.getMessage());
-            }
-        }
-        else {
-            Log.d("AppMsg", "Storage not readable");
-            return null;
-        }
+        Log.d("AppMsg", "Storage not readable");
         return null;
     }
 
