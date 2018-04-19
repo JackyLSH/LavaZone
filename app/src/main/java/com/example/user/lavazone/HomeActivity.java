@@ -158,8 +158,6 @@ public class HomeActivity extends AppCompatActivity {
         this.ll_latestItem = ll_latestItem;
         Gson gson = new Gson();
 
-        Log.d("AppMsg", ""+getFilesDir()+"/mydirectory");
-
         if (isNetworkAvailable()) {
             try {
                 recentItems = db.getRecentItem(4);

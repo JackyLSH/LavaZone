@@ -232,6 +232,17 @@ public class Storage {
         if (classType.equals("jpg")) {
             return new TypeToken<InputStream>(){}.getType();
         }
+
+        // Type CartItem
+        if (classType.equals("CartItem")) {
+            return new TypeToken<CartItem>(){}.getType();
+        }
+
+        // Type List<CartItem>
+        if (classType.equals("List<CartItem>")) {
+            return new TypeToken<List<CartItem>>(){}.getType();
+        }
+
         return type;
     }
 
