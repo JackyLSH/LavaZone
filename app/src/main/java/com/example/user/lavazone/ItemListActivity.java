@@ -1,5 +1,6 @@
 package com.example.user.lavazone;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,6 +8,9 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import java.util.List;
 
 public class ItemListActivity extends AppCompatActivity {
 
@@ -44,5 +48,25 @@ public class ItemListActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+
+        //get passing value from prev activity
+        Intent intent = getIntent();
+        String[] keys = intent.getStringArrayExtra("keywords");
+
+        //get the list from database
+        Database db = new Database();
+        List<Item> itemList = null;
+        try {
+            itemList = db.searchItem(keys);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //set the view
+        ListView itemListView = (ListView) findViewById(R.id.item_list_listview);
+        ItemListAdapter adapter = new ItemListAdapter(this, R.layout.adapter_item_listview_layout, itemList);
+        itemListView.setAdapter(adapter);
+
     }
 }

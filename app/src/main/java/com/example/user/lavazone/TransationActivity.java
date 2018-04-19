@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -25,6 +26,9 @@ import java.util.regex.Pattern;
 public class TransationActivity extends AppCompatActivity {
 
     String JSON_STRING;
+
+    String textAddr, textName, textEmail;
+    TextView tv_TextName, tv_TextCardNum,tv_BillingAddr, tv_TextExpDate, tv_TextCVC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +42,25 @@ public class TransationActivity extends AppCompatActivity {
         Database db = new Database();
 
         if (isNetworkAvailable()) {
-
+            textAddr = getIntent().getStringExtra("addr");
+            textName = getIntent().getStringExtra("name");
+            textEmail = getIntent().getStringExtra("email");
         }
 
     }
 
     public void OnConfirm(View view) {
         Intent toupdate = new Intent(TransationActivity.this, HomeActivity.class);
+        toupdate.putExtra("addr", textAddr);
+        toupdate.putExtra("name", textName);
+        toupdate.putExtra("email", textEmail);
+
+        toupdate.putExtra("addr", tv_TextName.getText().toString());
+        toupdate.putExtra("name", tv_TextCardNum.getText().toString());
+        toupdate.putExtra("email", tv_BillingAddr.getText().toString());
+        toupdate.putExtra("email", tv_TextExpDate.getText().toString());
+        toupdate.putExtra("email", tv_TextCVC.getText().toString());
+
         startActivity(toupdate);
     }
 

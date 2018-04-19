@@ -53,7 +53,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="Card Holder Name"
-                android:textAlignment="textStart"
                 android:textColor="#000"
                 android:textSize="20dp" />
 
@@ -74,7 +73,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="Card Number"
-                android:textAlignment="textStart"
                 android:textColor="#000"
                 android:textSize="20dp" />
 
@@ -103,7 +101,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="left|center_horizontal"
                         android:text="Expiry Date"
-                        android:textAlignment="textStart"
                         android:textColor="#000"
                         android:textSize="20dp" />
 
@@ -113,7 +110,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="left|center_horizontal"
                         android:text="CVC"
-                        android:textAlignment="textStart"
                         android:textColor="#000"
                         android:textSize="20dp" />
                 </TableRow>
@@ -140,12 +136,11 @@
             </TableLayout>
 
             <TextView
-                android:id="@+id/BillingAdd"
+                android:id="@+id/BillingAddr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="Billing Address"
-                android:textAlignment="textStart"
                 android:textColor="#000"
                 android:textSize="20dp" />
 
@@ -165,7 +160,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="Tel Number"
-                android:textAlignment="textStart"
                 android:textColor="#000"
                 android:textSize="20dp" />
 

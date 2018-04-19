@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -26,6 +27,9 @@ public class AddressActivity extends AppCompatActivity {
 
     String JSON_STRING;
 
+    TextView tv_TextAddress, tv_TextRecName,tv_TextEmail;
+    Item[] itemList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,14 +41,22 @@ public class AddressActivity extends AppCompatActivity {
 
         Database db = new Database();
 
-        if (isNetworkAvailable()) {
+        this.tv_TextAddress = (TextView)this.findViewById(R.id.TextAddress);
+        this.tv_TextRecName = (TextView)this.findViewById(R.id.TextRecName);
+        this.tv_TextEmail = (TextView)this.findViewById(R.id.TextEmail);
 
+        if (isNetworkAvailable()) {
+            //itemList = getIntent().get;
         }
 
     }
 
     public void OnConfirm(View view) {
         Intent toupdate = new Intent(AddressActivity.this, TransationActivity.class);
+        toupdate.putExtra("addr", tv_TextAddress.getText().toString());
+        toupdate.putExtra("name", tv_TextRecName.getText().toString());
+        toupdate.putExtra("email", tv_TextEmail.getText().toString());
+
         startActivity(toupdate);
     }
 
