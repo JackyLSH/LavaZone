@@ -58,6 +58,24 @@
 
     </RelativeLayout>
 
+    <!--Error page-->
+    <ImageView
+        android:id="@+id/homeWarningImg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="100dp"
+        android:scaleType="centerInside"
+        android:src="@android:drawable/stat_sys_warning"
+        android:tint="@android:color/holo_red_dark"
+        app:srcCompat="@android:drawable/stat_sys_warning" />
+
+    <TextView
+        android:id="@+id/homeWarningLb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="An error occured. Please refresh later."
+        android:textAlignment="center" />
+
     <!--This is the content part-->
     <ScrollView
         android:id="@+id/home_content"
@@ -98,17 +116,17 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:baselineAligned="false"
-                    android:gravity="center"
-                    android:orientation="vertical"
                     android:clickable="true"
-                    android:onClick="itemOnClick">
+                    android:gravity="center"
+                    android:onClick="itemOnClick"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/latestItemImg1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:contentDescription="Item 1 img"
                         android:adjustViewBounds="true"
+                        android:contentDescription="Item 1 img"
                         android:scaleType="fitCenter"
                         app:srcCompat="@android:drawable/star_big_on" />
 
@@ -125,17 +143,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
                     android:clickable="true"
-                    android:onClick="itemOnClick">
+                    android:gravity="center"
+                    android:onClick="itemOnClick"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/latestItemImg2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:contentDescription="Item 2 img"
                         android:adjustViewBounds="true"
+                        android:contentDescription="Item 2 img"
                         android:scaleType="fitCenter"
                         app:srcCompat="@android:drawable/star_big_on" />
 
@@ -163,17 +181,17 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
                     android:clickable="true"
-                    android:onClick="itemOnClick">
+                    android:gravity="center"
+                    android:onClick="itemOnClick"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/latestItemImg3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:contentDescription="Item 3 img"
                         android:adjustViewBounds="true"
+                        android:contentDescription="Item 3 img"
                         android:scaleType="fitCenter"
                         app:srcCompat="@android:drawable/star_big_on" />
 
@@ -190,17 +208,17 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
                     android:clickable="true"
-                    android:onClick="itemOnClick">
+                    android:gravity="center"
+                    android:onClick="itemOnClick"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/latestItemImg4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:contentDescription="Item 4 img"
                         android:adjustViewBounds="true"
+                        android:contentDescription="Item 4 img"
                         android:scaleType="fitCenter"
                         app:srcCompat="@android:drawable/star_big_on" />
 
@@ -213,135 +231,28 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/nearbyItemsLb"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Nearby Items"
-                android:textAppearance="@android:style/TextAppearance.Material.Headline" />
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="15dp"
                 android:layout_marginTop="10dp"
+                android:layout_weight="1"
                 android:baselineAligned="false"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/nearbyItem1"
-                    android:layout_width="match_parent"
+                    android:id="@+id/latestItem5"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:baselineAligned="false"
-                    android:gravity="center"
-                    android:orientation="vertical"
                     android:clickable="true"
-                    android:onClick="itemOnClick">
+                    android:gravity="center"
+                    android:onClick="itemOnClick"
+                    android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/nearbyItemImg1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:contentDescription="Nearby item 1 img"
-                        android:scaleType="fitCenter"
-                        app:srcCompat="@android:drawable/star_big_on" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/nearbyItemName1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="item_5_name" />
-
-                        <TextView
-                            android:id="@+id/nearbyItemDist1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="item_5_dist" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/nearbyItem2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:clickable="true"
-                    android:onClick="itemOnClick">
-
-                    <ImageView
-                        android:id="@+id/nearbyItemImg2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:contentDescription="Nearby item 2 img"
-                        android:scaleType="fitCenter"
-                        app:srcCompat="@android:drawable/star_big_on" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/nearbyItemName2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="item_6_name" />
-
-                        <TextView
-                            android:id="@+id/nearbyItemDist2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="item_6_dist" />
-                    </LinearLayout>
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:layout_marginTop="10dp"
-                android:baselineAligned="false"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/nearbyItem3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:clickable="true"
-                    android:onClick="itemOnClick">
-
-                    <ImageView
-                        android:id="@+id/nearbyItemImg3"
+                        android:id="@+id/latestItemImg5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
@@ -349,43 +260,28 @@
                         android:scaleType="fitCenter"
                         app:srcCompat="@android:drawable/star_big_on" />
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/latestItemName5"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/nearbyItemName3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="item_7_name" />
-
-                        <TextView
-                            android:id="@+id/nearbyItemDist3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="item_7_dist" />
-                    </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="item_5_name" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/nearbyItem4"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/latestItem6"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
                     android:clickable="true"
-                    android:onClick="itemOnClick">
+                    android:gravity="center"
+                    android:onClick="itemOnClick"
+                    android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/nearbyItemImg4"
+                        android:id="@+id/latestItemImg6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
@@ -393,28 +289,13 @@
                         android:scaleType="fitCenter"
                         app:srcCompat="@android:drawable/star_big_on" />
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/latestItemName6"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/nearbyItemName4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="item_8_name" />
-
-                        <TextView
-                            android:id="@+id/nearbyItemDist4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="item_8_dist" />
-                    </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="item_6_name" />
 
                 </LinearLayout>
             </LinearLayout>

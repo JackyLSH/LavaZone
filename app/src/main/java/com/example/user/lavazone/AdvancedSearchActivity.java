@@ -75,24 +75,26 @@ public class AdvancedSearchActivity extends AppCompatActivity {
         //end of top search function
 
 
-        Spinner spinnerCatelog = (Spinner) findViewById(R.id.categories_spinner);
-        ArrayAdapter<CharSequence> adapter0 = ArrayAdapter.createFromResource(AdvancedSearchActivity.this,R.array.categories_array, android.R.layout.simple_spinner_dropdown_item);
+        final Spinner spinnerCatelog = (Spinner) findViewById(R.id.categories_spinner);
+        final ArrayAdapter<CharSequence> adapter0 = ArrayAdapter.createFromResource(AdvancedSearchActivity.this,R.array.categories_array, android.R.layout.simple_spinner_dropdown_item);
         spinnerCatelog.setAdapter(adapter0);
 
-        Spinner spinnerTexture = (Spinner) findViewById(R.id.texture_spinner);
-        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(AdvancedSearchActivity.this,R.array.texture_array, android.R.layout.simple_spinner_dropdown_item);
+        final Spinner spinnerTexture = (Spinner) findViewById(R.id.texture_spinner);
+        final ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(AdvancedSearchActivity.this,R.array.texture_array, android.R.layout.simple_spinner_dropdown_item);
         spinnerTexture.setAdapter(adapter1);
 
-        Spinner spinnerColor = (Spinner) findViewById(R.id.color_spinner);
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(AdvancedSearchActivity.this,R.array.color_array, android.R.layout.simple_spinner_dropdown_item);
+        final Spinner spinnerColor = (Spinner) findViewById(R.id.color_spinner);
+        final ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(AdvancedSearchActivity.this,R.array.color_array, android.R.layout.simple_spinner_dropdown_item);
         spinnerColor.setAdapter(adapter2);
 
         Button submit = (Button) findViewById(R.id.as_search_but);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
+                String[] stringArr = {spinnerCatelog.getSelectedItem().toString(), spinnerTexture.getSelectedItem().toString(), spinnerColor.getSelectedItem().toString()};
+                Intent intent = new Intent(AdvancedSearchActivity.this, ItemListActivity.class);
+                intent.putExtra("keywords", stringArr);
+                startActivity(intent);
             }
         });
     }

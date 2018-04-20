@@ -8,18 +8,29 @@
         <item>table</item>
         <item>chair</item>
         <item>sofa</item>
+        <item>bed</item>
+        <item>cabinet</item>
+
     </string-array>
 
     <string-array name="color_array">
         <item>blue</item>
         <item>red</item>
         <item>green</item>
+        <item>white</item>
+        <item>black</item>
+        <item>wooden</item>
+        <item>grey</item>
     </string-array>
 
     <string-array name="texture_array">
         <item>wood</item>
         <item>plastic</item>
         <item>metal</item>
+        <item>soft</item>
+        <item>hard</item>
+        <item>smooth</item>
+        <item>rough</item>
     </string-array>
 
     <string-array name="pricerange_array">

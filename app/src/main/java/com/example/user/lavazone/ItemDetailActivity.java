@@ -21,6 +21,9 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 
 public class ItemDetailActivity extends AppCompatActivity {
+    Item item = null;
+    Store store = null;
+    Drawable d;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +63,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int curItemID = intent.getIntExtra("item_id",0);
         Database db = new Database();
-        Item item = null;
-        Store store = null;
+
         if (curItemID!=0) {
             try {
                 item = db.getItemDetailByID(curItemID);
@@ -76,7 +78,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                     ImageView ivItemImage = (ImageView)findViewById(R.id.imageView1);
                     URL imgURL = new URL("http://www2.comp.polyu.edu.hk/~15093307d/imagedb/" + db.getItemImg(curItemID).get(0) + ".jpg");
                     InputStream content = (InputStream) imgURL.getContent();
-                    Drawable d = Drawable.createFromStream(content, "src");
+                    d = Drawable.createFromStream(content, "src");
                     ivItemImage.setImageDrawable(d);
                 } catch (Exception e) {
                     Log.d("ItemAdapter", "Error");
@@ -101,13 +103,23 @@ public class ItemDetailActivity extends AppCompatActivity {
                 addButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(ItemDetailActivity.this, CartActivity.class);
+                        // Write cartItem to storage
                         EditText edit = (EditText) findViewById(R.id.editText4);
                         int quantity = Integer.parseInt(edit.getText().toString());
-                        intent.putExtra("item_id", 1);
-                        intent.putExtra("store_id", 1);
-                        intent.putExtra("qq", quantity);
+                        CartItem cartItem = new CartItem(item, quantity);
+                        Storage storage_cartItem = new Storage(ItemDetailActivity.this, "cartItem.dat", "List<CartItem>");
+                        storage_cartItem.appendFileInternalStorage(cartItem);
+
+                        // Write cartItemImg to storage
+                        Storage storage_cartItemImg = new Storage(ItemDetailActivity.this, "cartItemImg" + item.item_id + ".jpg", "jpg");
+                        storage_cartItemImg.writeImgInternalStorage(d);
+
+                        Intent intent = new Intent(ItemDetailActivity.this, CartActivity.class);
                         startActivity(intent);
+
+//                        intent.putExtra("item_id", 1);
+//                        intent.putExtra("store_id", 1);
+//                        intent.putExtra("qq", quantity);
                     }
                 });
             }

@@ -23,6 +23,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.lang.reflect.Type;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -33,12 +35,14 @@ public class Storage {
     private String filenameExternal = "";
     private Gson gson = new Gson();
     private String classType = "";
+    private String innerClassType = "";
 
     public Storage(Context ctx, String str, String cls) {
         context = ctx;
         filenameInternal = str;
         classType = cls;
     }
+
 
     public void writeFileInternalStorage(Object obj) {
 //        String cls = obj.getClass().getName();
@@ -68,7 +72,6 @@ public class Storage {
 //            type = new TypeToken<List<Item>>(){}.getType();
 //        }
 
-        new TypeToken<List<Item>>(){}.getType();
         String str = gson.toJson(obj, getTypeFromString());
         createUpdateFile(filenameInternal, str, true);
     }
@@ -94,6 +97,11 @@ public class Storage {
         if (classType.equals("jpg")) {
             return readImgInternalStorage();
         }
+
+        if (classType.equals("List<CartItem>")) {
+            return readCartItemInternalStorage();
+        }
+
         try {
             FileInputStream fileInputStream = context.openFileInput(filenameInternal);
             BufferedReader reader = new BufferedReader(new InputStreamReader(fileInputStream));
@@ -107,6 +115,31 @@ public class Storage {
             }
 
             return gson.fromJson(sb.toString(), getTypeFromString());
+
+        } catch (Exception e) {
+            Log.d("AppMsg", "Error in readFile: " + e.getMessage() + "\n");
+        }
+        return null;
+    }
+
+    public List<Object> readCartItemInternalStorage() {
+        ArrayList<Object> list = new ArrayList<>();
+
+
+        try {
+            FileInputStream fileInputStream = context.openFileInput(filenameInternal);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(fileInputStream));
+
+            StringBuffer sb = new StringBuffer();
+            String line = reader.readLine();
+
+            while (line != null) {
+                sb.append(line);
+                line = reader.readLine();
+                list.add(gson.fromJson(sb.toString(), getTypeFromString()));
+            }
+
+            return new ArrayList<Object>(Arrays.asList(list));
 
         } catch (Exception e) {
             Log.d("AppMsg", "Error in readFile: " + e.getMessage() + "\n");
@@ -240,7 +273,7 @@ public class Storage {
 
         // Type List<CartItem>
         if (classType.equals("List<CartItem>")) {
-            return new TypeToken<List<CartItem>>(){}.getType();
+            return new TypeToken<CartItem>(){}.getType();
         }
 
         return type;

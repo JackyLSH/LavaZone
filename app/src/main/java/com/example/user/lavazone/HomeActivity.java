@@ -27,6 +27,7 @@ import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -75,7 +76,12 @@ public class HomeActivity extends AppCompatActivity {
             new Storage(this, "homeRecentItemsImg2.jpg", "jpg"),
             new Storage(this, "homeRecentItemsImg3.jpg", "jpg"),
             new Storage(this, "homeRecentItemsImg4.jpg", "jpg"),
+            new Storage(this, "homeRecentItemsImg5.jpg", "jpg"),
+            new Storage(this, "homeRecentItemsImg6.jpg", "jpg")
     };
+
+//    private Storage storage_name = new Storage(this, "prefix"+item_id+".jpg", "jpg");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,34 +144,41 @@ public class HomeActivity extends AppCompatActivity {
                 (ImageView)this.findViewById(R.id.latestItemImg1),
                 (ImageView)this.findViewById(R.id.latestItemImg2),
                 (ImageView)this.findViewById(R.id.latestItemImg3),
-                (ImageView)this.findViewById(R.id.latestItemImg4)
+                (ImageView)this.findViewById(R.id.latestItemImg4),
+                (ImageView)this.findViewById(R.id.latestItemImg5),
+                (ImageView)this.findViewById(R.id.latestItemImg6)
         };
 
         TextView[] tv_latestItemName = {
                 (TextView)this.findViewById(R.id.latestItemName1),
                 (TextView)this.findViewById(R.id.latestItemName2),
                 (TextView)this.findViewById(R.id.latestItemName3),
-                (TextView)this.findViewById(R.id.latestItemName4)
+                (TextView)this.findViewById(R.id.latestItemName4),
+                (TextView)this.findViewById(R.id.latestItemName5),
+                (TextView)this.findViewById(R.id.latestItemName6)
         };
 
         LinearLayout[] ll_latestItem = {
                 (LinearLayout)this.findViewById(R.id.latestItem1),
                 (LinearLayout)this.findViewById(R.id.latestItem2),
                 (LinearLayout)this.findViewById(R.id.latestItem3),
-                (LinearLayout)this.findViewById(R.id.latestItem4)
+                (LinearLayout)this.findViewById(R.id.latestItem4),
+                (LinearLayout)this.findViewById(R.id.latestItem5),
+                (LinearLayout)this.findViewById(R.id.latestItem6)
         };
 
         this.ll_latestItem = ll_latestItem;
         Gson gson = new Gson();
 
+        hideError();
         if (isNetworkAvailable()) {
             try {
-                recentItems = db.getRecentItem(4);
+                recentItems = db.getRecentItem(6);
 
                 // save recentItems to storage
                 writeToFile(storage_recentItems, recentItems);
 
-                for (int num=0; num<4; num++) {
+                for (int num=0; num<6; num++) {
                     if (recentItems.size() > num) {
                         // set item
                         URL imgURL = new URL(imgURLPrefix + Integer.toString(db.getItemImg(recentItems.get(num).item_id).get(0)) + imgURLPostfix);
@@ -189,17 +202,17 @@ public class HomeActivity extends AppCompatActivity {
                 Log.d("AppMsg", "Error");
                 Log.d("AppMsg", e.getMessage());
             }
-            //itemOnClick();
         } else {
 
-                recentItems = (List<Item>) readFromFile(storage_recentItems);
+            recentItems = (List<Item>) readFromFile(storage_recentItems);
 
-                if (recentItems == null) {
-                    // Error
-                    Log.d("AppMsg", "Fatal Error 1: no recentItems");
-                }
+            if (recentItems == null) {
+                // Error
+                Log.d("AppMsg", "Fatal Error 1: no recentItems");
+                showError();
 
-                for (int num=0; num<4; num++) {
+            } else {
+                for (int num = 0; num < 6; num++) {
                     if (recentItems.size() > num) {
                         // set item
                         tv_latestItemName[num].setText(recentItems.get(num).name);
@@ -214,6 +227,7 @@ public class HomeActivity extends AppCompatActivity {
 
                     }
                 }
+            }
 
         }
     }
@@ -281,7 +295,8 @@ public class HomeActivity extends AppCompatActivity {
 
     // Write to file
     private void writeToFile(Storage storage, Object obj) {
-        if (isExternalStorageWritable()) {
+        storage.writeFileInternalStorage(obj);
+//        if (isExternalStorageWritable()) {
 //            if (!file.exists()) {
 //                try {
 //                    file.mkdirs();
@@ -301,15 +316,15 @@ public class HomeActivity extends AppCompatActivity {
 //            } catch (Exception e) {
 //                Log.d("AppMsg", "Error in writing: " + e.getMessage());
 //            }
-            storage.writeFileInternalStorage(obj);
-        }
-        else {
-            Log.d("AppMsg", "Storage not writable");
-        }
+//        }
+//        else {
+//            Log.d("AppMsg", "Storage not writable");
+//        }
     }
 
     private Object readFromFile(Storage storage) {
-        if (isExternalStorageReadable()) {
+        return storage.readFileInternalStorage();
+//        if (isExternalStorageReadable()) {
 //            if (!file.exists()) {
 //                Log.d("AppMsg", "File not found");
 //                return null;
@@ -330,12 +345,32 @@ public class HomeActivity extends AppCompatActivity {
 //            } catch (IOException e) {
 //                Log.d("AppMsg", "Error in reading file: " + e.getMessage());
 //            }
-            return storage.readFileInternalStorage();
-        }
+//        }
 
-        Log.d("AppMsg", "Storage not readable");
-        return null;
+//        Log.d("AppMsg", "Storage not readable");
+//        return null;
     }
 
+    // Show error page
+    protected void showError() {
+        ImageView iv_warngingImg = (ImageView)this.findViewById(R.id.homeWarningImg);
+        TextView tv_warningLb = (TextView)this.findViewById(R.id.homeWarningLb);
+        iv_warngingImg.setVisibility(View.VISIBLE);
+        tv_warningLb.setVisibility(View.VISIBLE);
+
+        ScrollView sv_storeScroll = (ScrollView)this.findViewById(R.id.home_content);
+        sv_storeScroll.setVisibility(View.GONE);
+    }
+
+    // Hide error page
+    protected void hideError() {
+        ImageView iv_warngingImg = (ImageView)this.findViewById(R.id.homeWarningImg);
+        TextView tv_warningLb = (TextView)this.findViewById(R.id.homeWarningLb);
+        iv_warngingImg.setVisibility(View.GONE);
+        tv_warningLb.setVisibility(View.GONE);
+
+        ScrollView sv_storeScroll = (ScrollView)this.findViewById(R.id.home_content);
+        sv_storeScroll.setVisibility(View.VISIBLE);
+    }
 
 }
