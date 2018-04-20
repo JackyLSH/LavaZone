@@ -30,6 +30,8 @@
             android:name=".StoreActivity"
             android:label="@string/title_activity_store"
             android:theme="@style/AppTheme"></activity>
+        <activity android:name=".AddressActivity"/>
+        <activity android:name=".TransationActivity"/>
     </application>
 
 </manifest>

@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -117,6 +119,24 @@ public class HomeActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        //top search function for every Activity
+        final TextInputEditText topSearchText = (TextInputEditText) findViewById(R.id.topSearch);
+        ImageButton topSearchBut = (ImageButton) findViewById(R.id.topSearchButtom);
+        topSearchBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String key = topSearchText.getText().toString();
+                if (!key.equals("")) {
+                    String[] keys = {key};
+                    Intent intent = new Intent(HomeActivity.this, ItemListActivity.class);
+                    intent.putExtra("keywords", keys);
+                    startActivity(intent);
+                };
+
+            }
+        });
+        //end of top search function
 
         // Permitting Internet
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();

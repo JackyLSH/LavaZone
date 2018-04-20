@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -27,7 +28,8 @@ public class AddressActivity extends AppCompatActivity {
 
     String JSON_STRING;
 
-    TextView tv_TextAddress, tv_TextRecName,tv_TextEmail;
+//    TextView tv_TextAddress, tv_TextRecName,tv_TextEmail;
+    EditText et_address, et_name, et_email;
     Item[] itemList;
 
     @Override
@@ -41,9 +43,13 @@ public class AddressActivity extends AppCompatActivity {
 
         Database db = new Database();
 
-        this.tv_TextAddress = (TextView)this.findViewById(R.id.TextAddress);
-        this.tv_TextRecName = (TextView)this.findViewById(R.id.TextRecName);
-        this.tv_TextEmail = (TextView)this.findViewById(R.id.TextEmail);
+//        this.tv_TextAddress = (TextView)this.findViewById(R.id.TextAddress);
+//        this.tv_TextRecName = (TextView)this.findViewById(R.id.TextRecName);
+//        this.tv_TextEmail = (TextView)this.findViewById(R.id.TextEmail);
+
+        this.et_address = (EditText)findViewById(R.id.addressInput);
+        this.et_name = (EditText)findViewById(R.id.nameInput);
+        this.et_email = (EditText)findViewById(R.id.emailInput);
 
         if (isNetworkAvailable()) {
             //itemList = getIntent().get;
@@ -52,10 +58,14 @@ public class AddressActivity extends AppCompatActivity {
     }
 
     public void OnConfirm(View view) {
+        if (et_address.getText().toString().isEmpty() || et_name.getText().toString().isEmpty() || et_email.getText().toString().isEmpty()) {
+            return;
+        }
+
         Intent toupdate = new Intent(AddressActivity.this, TransationActivity.class);
-        toupdate.putExtra("addr", tv_TextAddress.getText().toString());
-        toupdate.putExtra("name", tv_TextRecName.getText().toString());
-        toupdate.putExtra("email", tv_TextEmail.getText().toString());
+        toupdate.putExtra("addr", et_address.getText().toString());
+        toupdate.putExtra("name", et_name.getText().toString());
+        toupdate.putExtra("email", et_email.getText().toString());
 
         startActivity(toupdate);
     }

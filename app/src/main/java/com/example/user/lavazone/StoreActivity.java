@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -18,6 +19,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -64,6 +66,24 @@ public class StoreActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        //top search function for every Activity
+        final TextInputEditText topSearchText = (TextInputEditText) findViewById(R.id.topSearch);
+        ImageButton topSearchBut = (ImageButton) findViewById(R.id.topSearchButtom);
+        topSearchBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String key = topSearchText.getText().toString();
+                if (!key.equals("")) {
+                    String[] keys = {key};
+                    Intent intent = new Intent(StoreActivity.this, ItemListActivity.class);
+                    intent.putExtra("keywords", keys);
+                    startActivity(intent);
+                };
+
+            }
+        });
+        //end of top search function
 
         if (isNetworkAvailable()) {
             // Get store info

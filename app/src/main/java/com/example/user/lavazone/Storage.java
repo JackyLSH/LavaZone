@@ -11,8 +11,10 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,6 +23,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.ArrayList;
@@ -66,14 +70,16 @@ public class Storage {
     }
 
     public void appendFileInternalStorage(Object obj) {
-//        String cls = obj.getClass().toString();
-//        Type type = null;
-//        if (cls == "List<Item>") {
-//            type = new TypeToken<List<Item>>(){}.getType();
-//        }
 
-        String str = gson.toJson(obj, getTypeFromString());
-        createUpdateFile(filenameInternal, str, true);
+        ArrayList<CartItem> list;
+        if (new File(context.getFilesDir(), filenameInternal).exists()) {
+            list = (ArrayList<CartItem>) readFileInternalStorage();
+        } else {
+            list = new ArrayList<CartItem>();
+        }
+        list.add((CartItem)obj);
+        String str = gson.toJson(list, getTypeFromString());
+        createUpdateFile(filenameInternal, str, false);
     }
 
     private void createUpdateFile(String fileName, String content, boolean update) {
@@ -98,33 +104,43 @@ public class Storage {
             return readImgInternalStorage();
         }
 
-        if (classType.equals("List<CartItem>")) {
-            return readCartItemInternalStorage();
-        }
+        File file = new File(context.getFilesDir(), filenameInternal);
+        if (file.exists()){
+            try {
+                FileInputStream fileInputStream = context.openFileInput(filenameInternal);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(fileInputStream));
 
-        try {
-            FileInputStream fileInputStream = context.openFileInput(filenameInternal);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(fileInputStream));
+                StringBuffer sb = new StringBuffer();
+                String line = reader.readLine();
 
-            StringBuffer sb = new StringBuffer();
-            String line = reader.readLine();
+                while (line != null) {
+                    sb.append(line);
+                    line = reader.readLine();
+                }
 
-            while (line != null) {
-                sb.append(line);
-                line = reader.readLine();
+                return gson.fromJson(sb.toString(), getTypeFromString());
+
+            } catch (Exception e) {
+                Log.d("AppMsg", "Error in readFile: " + e.getMessage() + "\n");
             }
-
-            return gson.fromJson(sb.toString(), getTypeFromString());
-
-        } catch (Exception e) {
-            Log.d("AppMsg", "Error in readFile: " + e.getMessage() + "\n");
         }
-        return null;
+        return new ArrayList<Object>();
     }
 
-    public List<Object> readCartItemInternalStorage() {
-        ArrayList<Object> list = new ArrayList<>();
+    public void deleteCartItem(CartItem item) {
+        try{
+            List<CartItem> list = (List<CartItem>) readFileInternalStorage();
+            list.remove(item);
+            writeFileInternalStorage(list);
+        }
+        catch (Exception e) {
+            Log.d("AppMsg", "Error in delete" + e.getMessage());
+        }
 
+    }
+    public List<CartItem> readCartItemInternalStorage() {
+        ArrayList<CartItem> list = new ArrayList<>();
+//        JsonReader.setLenient(true);
 
         try {
             FileInputStream fileInputStream = context.openFileInput(filenameInternal);
@@ -134,12 +150,13 @@ public class Storage {
             String line = reader.readLine();
 
             while (line != null) {
+                Log.d("AppMsg", line);
                 sb.append(line);
+                sb.append(",");
                 line = reader.readLine();
-                list.add(gson.fromJson(sb.toString(), getTypeFromString()));
+                list.add((CartItem) gson.fromJson(sb.toString(), getTypeFromString()));
             }
-
-            return new ArrayList<Object>(Arrays.asList(list));
+            return list;
 
         } catch (Exception e) {
             Log.d("AppMsg", "Error in readFile: " + e.getMessage() + "\n");
@@ -196,13 +213,11 @@ public class Storage {
     }
 
     public void deleteFile() {
-        try {
-            String fileName = "couponstemp";
-            File file = File.createTempFile(fileName, null, context.getCacheDir());
-
+//        try {
+//            File file = File.createTempFile(filenameInternal, null, context.getCacheDir());
+            File file = new File(context.getFilesDir(), filenameInternal);
             file.delete();
-        } catch (IOException e) {
-        }
+//        }
     }
 
     public void writeFileExternalStorage() {
@@ -273,7 +288,7 @@ public class Storage {
 
         // Type List<CartItem>
         if (classType.equals("List<CartItem>")) {
-            return new TypeToken<CartItem>(){}.getType();
+            return new TypeToken<List<CartItem>>(){}.getType();
         }
 
         return type;

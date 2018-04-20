@@ -27,7 +27,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:weightSum="100"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:descendantFocusability="beforeDescendants"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
+                    <requestFocus/>
 
                     <ImageView
                         android:layout_width="0dp"
@@ -65,7 +69,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/bottomBar"
-            android:layout_below="@+id/topBar">
+            android:layout_below="@+id/topBar"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
 
         </RelativeLayout>

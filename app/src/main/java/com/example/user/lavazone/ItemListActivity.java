@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.List;
@@ -49,6 +52,23 @@ public class ItemListActivity extends AppCompatActivity {
             }
         });
 
+        //top search function for every Activity
+        final TextInputEditText topSearchText = (TextInputEditText) findViewById(R.id.topSearch);
+        ImageButton topSearchBut = (ImageButton) findViewById(R.id.topSearchButtom);
+        topSearchBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String key = topSearchText.getText().toString();
+                if (!key.equals("")) {
+                    String[] keys = {key};
+                    Intent intent = new Intent(ItemListActivity.this, ItemListActivity.class);
+                    intent.putExtra("keywords", keys);
+                    startActivity(intent);
+                };
+
+            }
+        });
+        //end of top search function
 
         //get passing value from prev activity
         Intent intent = getIntent();

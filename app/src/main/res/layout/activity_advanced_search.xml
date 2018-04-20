@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
+    tools:context=".AdvancedSearchActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -146,27 +146,6 @@
 
                     </TableRow>
 
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Price range"
-                            android:textAlignment="viewEnd"
-                            android:textSize="18sp" />
-
-                        <Spinner
-                            android:id="@+id/pricerange_spinner"
-                            android:layout_width="150dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_span="2" />
-
-                    </TableRow>
 
                     <TableRow
                         android:layout_width="match_parent"

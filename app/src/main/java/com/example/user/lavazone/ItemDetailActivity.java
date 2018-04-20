@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -60,6 +62,24 @@ public class ItemDetailActivity extends AppCompatActivity {
             }
         });
 
+        //top search function for every Activity
+        final TextInputEditText topSearchText = (TextInputEditText) findViewById(R.id.topSearch);
+        ImageButton topSearchBut = (ImageButton) findViewById(R.id.topSearchButtom);
+        topSearchBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String key = topSearchText.getText().toString();
+                if (!key.equals("")) {
+                    String[] keys = {key};
+                    Intent intent = new Intent(ItemDetailActivity.this, ItemListActivity.class);
+                    intent.putExtra("keywords", keys);
+                    startActivity(intent);
+                };
+
+            }
+        });
+        //end of top search function
+
         Intent intent = getIntent();
         int curItemID = intent.getIntExtra("item_id",0);
         Database db = new Database();
@@ -103,8 +123,11 @@ public class ItemDetailActivity extends AppCompatActivity {
                 addButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // Write cartItem to storage
                         EditText edit = (EditText) findViewById(R.id.editText4);
+                        if (edit.getText().toString().isEmpty()) {
+                            return;
+                        }
+                        // Write cartItem to storage
                         int quantity = Integer.parseInt(edit.getText().toString());
                         CartItem cartItem = new CartItem(item, quantity);
                         Storage storage_cartItem = new Storage(ItemDetailActivity.this, "cartItem.dat", "List<CartItem>");
@@ -125,4 +148,6 @@ public class ItemDetailActivity extends AppCompatActivity {
             }
         }
     }
+
+
 }

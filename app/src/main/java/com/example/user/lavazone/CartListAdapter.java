@@ -1,7 +1,9 @@
 package com.example.user.lavazone;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
@@ -22,17 +24,22 @@ import java.util.List;
 public class CartListAdapter extends ArrayAdapter<CartItem>{
     private Context ctx;
     int res;
+    private Item item;
+    private List<CartItem> cartItems;
+    private Intent intent;
 
-    public CartListAdapter(@NonNull Context context, int resource, @NonNull List<CartItem> objects) {
+    public CartListAdapter(@NonNull Context context, int resource, @NonNull List<CartItem> objects, Intent i) {
         super(context, resource, objects);
         ctx = context;
         res = resource;
+        cartItems = objects;
+        intent = i;
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        Item item = getItem(position).item;
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        item = getItem(position).item;
         int quantity = getItem(position).quantity;
 
         LayoutInflater inflater = LayoutInflater.from(ctx);
@@ -53,9 +60,9 @@ public class CartListAdapter extends ArrayAdapter<CartItem>{
 
 
         try {
-            Storage st = new Storage(ctx, "cartItemImage" + String.valueOf(position) + ".jpg", "jpg");
-            Drawable d = new BitmapDrawable(st.readImgInternalStorage());
-            ivItemImg.setImageDrawable(d);
+            Storage st = new Storage(ctx, "cartItemImg" + item.item_id + ".jpg", "jpg");
+            Bitmap d = (Bitmap)st.readImgInternalStorage();
+            ivItemImg.setImageBitmap(d);
         } catch (Exception e) {
             Log.d("ItemAdapter", "Error");
             Log.d("Msg", e.getMessage());
@@ -65,9 +72,15 @@ public class CartListAdapter extends ArrayAdapter<CartItem>{
         ib.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent next = new Intent(ctx, ItemDetailActivity.class);
-                next.putExtra("item_id",id);
-                ctx.startActivity(next);
+//                getitem()
+//                getItem(position).quantity = 0;
+                Storage st = new Storage(ctx, "cartItem.dat", "List<CartItem>");
+                Log.d("AppMsg", "deleting: " + cartItems.get(position).item.name);
+                st.deleteCartItem(cartItems.get(position));
+                Log.d("AppMsg", "After...");
+                ((Activity)ctx).finish();
+                ctx.startActivity(intent);
+
             }
         });
 

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -21,6 +22,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class TransationActivity extends AppCompatActivity {
@@ -29,6 +31,7 @@ public class TransationActivity extends AppCompatActivity {
 
     String textAddr, textName, textEmail;
     TextView tv_TextName, tv_TextCardNum,tv_BillingAddr, tv_TextExpDate, tv_TextCVC;
+    EditText et_name, et_cardNum, et_billAddr, et_expDate, et_cvc, et_tel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,12 @@ public class TransationActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
         Database db = new Database();
+        et_name = (EditText)findViewById(R.id.inputName2);
+        et_cardNum = (EditText)findViewById(R.id.inputCard);
+        et_billAddr = (EditText)findViewById(R.id.inputBill);
+        et_expDate = (EditText)findViewById(R.id.dateInput);
+        et_cvc = (EditText)findViewById(R.id.cvcInput);
+        et_tel = (EditText)findViewById(R.id.telInput);
 
         if (isNetworkAvailable()) {
             textAddr = getIntent().getStringExtra("addr");
@@ -50,16 +59,37 @@ public class TransationActivity extends AppCompatActivity {
     }
 
     public void OnConfirm(View view) {
+        if (et_name.getText().toString().isEmpty() || et_cardNum.getText().toString().isEmpty() || et_billAddr.getText().toString().isEmpty() || et_expDate.getText().toString().isEmpty() || et_cvc.getText().toString().isEmpty() || et_tel.getText().toString().isEmpty()) {
+            return;
+        }
         Intent toupdate = new Intent(TransationActivity.this, HomeActivity.class);
-        toupdate.putExtra("addr", textAddr);
-        toupdate.putExtra("name", textName);
-        toupdate.putExtra("email", textEmail);
+//        toupdate.putExtra("addr", textAddr);
+//        toupdate.putExtra("name", textName);
+//        toupdate.putExtra("email", textEmail);
 
-        toupdate.putExtra("addr", tv_TextName.getText().toString());
-        toupdate.putExtra("name", tv_TextCardNum.getText().toString());
-        toupdate.putExtra("email", tv_BillingAddr.getText().toString());
-        toupdate.putExtra("email", tv_TextExpDate.getText().toString());
-        toupdate.putExtra("email", tv_TextCVC.getText().toString());
+        Database db = new Database();
+        Storage st = new Storage(this, "cartItem.dat", "List<CartItem>");
+
+        List<CartItem> cartItemList = (List<CartItem>) st.readFileInternalStorage();
+        int[] order = new int[cartItemList.size()*2];
+        int i = 0;
+        for (CartItem ci : cartItemList) {
+            order[i++] = ci.item.item_id;
+            order[i++] = ci.quantity;
+        }
+        try {
+            db.sentOrderRecord(textName, textAddr, textEmail, Integer.parseInt(et_tel.getText().toString()), order);
+        } catch (Exception e) {
+            Log.d("AppMsg", "Error in sending order: " + e.getMessage());
+        }
+
+//        toupdate.putExtra("addr", tv_TextName.getText().toString());
+//        toupdate.putExtra("name", tv_TextCardNum.getText().toString());
+//        toupdate.putExtra("email", tv_BillingAddr.getText().toString());
+//        toupdate.putExtra("email", tv_TextExpDate.getText().toString());
+//        toupdate.putExtra("email", tv_TextCVC.getText().toString());
+
+        st.deleteFile();
 
         startActivity(toupdate);
     }
