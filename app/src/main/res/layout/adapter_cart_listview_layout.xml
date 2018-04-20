@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="5dp"
+    android:orientation="vertical"
+    android:weightSum="100">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+
+        <ImageView
+            android:id="@+id/cart_item_image"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_weight="70"
+            app:srcCompat="@color/colorAccent" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_weight="30"
+            android:orientation="vertical">
+
+            <TableRow>
+                <TextView
+                    android:id="@+id/cart_item_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:text="Item name" />
+            </TableRow>
+
+
+            <TableRow>
+                <TextView
+                    android:id="@+id/cart_item_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:text="Item price" />
+            </TableRow>
+
+
+            <TableRow>
+                <TextView
+                    android:id="@+id/cart_store_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:text="Store name" />
+            </TableRow>
+
+
+        </TableLayout>
+
+        <ImageButton
+            android:id="@+id/cart_remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/white"
+            app:srcCompat="@drawable/ic_remove" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="25"
+            android:text="Quantity"
+            android:textAlignment="textEnd" />
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/cart_input_quantity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="25"
+            android:inputType="text"
+            android:maxLines="1"
+            android:minLines="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="25"
+            android:text="Item Total:"
+            android:textAlignment="textEnd" />
+
+        <TextView
+            android:id="@+id/cart_total_item_sum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="25"
+            android:text="Item sum"
+            android:textAlignment="center" />
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
