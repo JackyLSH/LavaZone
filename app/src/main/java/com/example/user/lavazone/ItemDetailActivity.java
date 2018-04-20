@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class ItemDetailActivity extends AppCompatActivity {
     Item item = null;
@@ -131,7 +132,19 @@ public class ItemDetailActivity extends AppCompatActivity {
                         int quantity = Integer.parseInt(edit.getText().toString());
                         CartItem cartItem = new CartItem(item, quantity);
                         Storage storage_cartItem = new Storage(ItemDetailActivity.this, "cartItem.dat", "List<CartItem>");
-                        storage_cartItem.appendFileInternalStorage(cartItem);
+                        List<CartItem> oriList = (List<CartItem>) storage_cartItem.readFileInternalStorage();
+                        boolean contain = false;
+                        for(int i=0; i<oriList.size(); i++) {
+                            if (oriList.get(i).item.item_id == item.item_id) {
+                                oriList.get(i).quantity = quantity;
+                                contain = true;
+                            }
+                        }
+                        if (contain) {
+                            storage_cartItem.writeFileInternalStorage(oriList);
+                        } else {
+                            storage_cartItem.appendFileInternalStorage(cartItem);
+                        }
 
                         // Write cartItemImg to storage
                         Storage storage_cartItemImg = new Storage(ItemDetailActivity.this, "cartItemImg" + item.item_id + ".jpg", "jpg");

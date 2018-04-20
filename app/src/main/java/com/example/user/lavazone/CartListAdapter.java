@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,12 +52,14 @@ public class CartListAdapter extends ArrayAdapter<CartItem>{
         TextView tvStoreName = (TextView) convertView.findViewById(R.id.cart_store_name);
         TextView tvItemSum = (TextView) convertView.findViewById(R.id.cart_total_item_sum);
         ImageButton ib = (ImageButton) convertView.findViewById(R.id.cart_remove);
+        TextInputEditText quan = (TextInputEditText)convertView.findViewById(R.id.cart_input_quantity);
 
         //ivItemImg.setText(name);//local img preview
         tvItemName.setText(item.name);
         tvItemPrice.setText(String.valueOf(item.price));
         tvStoreName.setText(getItem(position).store_name);
         tvItemSum.setText(String.valueOf(item.price*quantity));
+        quan.setText(String.valueOf(quantity));
 
 
         try {
