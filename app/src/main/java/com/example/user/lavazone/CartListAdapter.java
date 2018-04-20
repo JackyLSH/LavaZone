@@ -81,8 +81,10 @@ public class CartListAdapter extends ArrayAdapter<CartItem>{
                 Log.d("AppMsg", "deleting: " + cartItems.get(position).item.name);
                 st.deleteCartItem(cartItems.get(position));
                 Log.d("AppMsg", "After...");
-                ((Activity)ctx).finish();
-                ctx.startActivity(intent);
+//                ((Activity)ctx).finish();
+//                ctx.startActivity(intent);
+                cartItems.remove(position);
+                ((CartActivity)ctx).updateTotalSum();
 
             }
         });

@@ -92,6 +92,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:gravity="center_horizontal|center_vertical"
                     android:text="Total Price:" />
 
                 <TextView
@@ -99,6 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:gravity="center_horizontal|center_vertical"
                     android:text="$1340" />
 
                 <Button

@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="25"
             android:text="Quantity"
-            android:textAlignment="textEnd" />
+            android:textAlignment="center" />
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/cart_input_quantity"
@@ -87,7 +87,8 @@
             android:layout_weight="25"
             android:inputType="text"
             android:maxLines="1"
-            android:minLines="1"/>
+            android:minLines="1"
+            android:textAlignment="center" />
 
         <TextView
             android:layout_width="wrap_content"

@@ -35,6 +35,10 @@ public class CartActivity extends AppCompatActivity {
     private final String imgURLPrefix = "http://www2.comp.polyu.edu.hk/~15093307d/imagedb/";
     private final String imgURLPostfix = ".jpg";
     public static Activity fa;
+    CartListAdapter adapter;
+    List<CartItem> cartItemList;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,18 +165,13 @@ public class CartActivity extends AppCompatActivity {
         ListView lv = (ListView)findViewById(R.id.cart_list_view);
 
         Storage storage_cartItem = new Storage(CartActivity.this, "cartItem.dat", "List<CartItem>");
-        List<CartItem> cartItemList = (List<CartItem>) storage_cartItem.readFileInternalStorage();
+        cartItemList = (List<CartItem>) storage_cartItem.readFileInternalStorage();
 
-        float amount = 0;
-        for (CartItem ci : cartItemList) {
-            amount += ci.quantity * ci.item.price;
-        }
 
-        TextView tv_amount = (TextView)findViewById(R.id.amount);
-        tv_amount.setText("$"+String.valueOf(amount));
-
-        CartListAdapter adapter = new CartListAdapter(CartActivity.this, R.layout.adapter_cart_listview_layout, cartItemList, getIntent());
+        adapter = new CartListAdapter(CartActivity.this, R.layout.adapter_cart_listview_layout, cartItemList, getIntent());
         lv.setAdapter(adapter);
+
+        updateTotalSum();
 
         Button btn = (Button)findViewById(R.id.button2);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -206,5 +205,15 @@ public class CartActivity extends AppCompatActivity {
         return super.dispatchTouchEvent( event );
     }
 
+    public void updateTotalSum(){
+        float amount = 0;
+        for (CartItem ci : cartItemList) {
+            amount += ci.quantity * ci.item.price;
+        }
+
+        TextView tv_amount = (TextView)findViewById(R.id.amount);
+        tv_amount.setText("$"+String.valueOf(amount));
+        adapter.notifyDataSetChanged();
+    }
 
 }
